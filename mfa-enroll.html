@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set Up Two-Factor Authentication</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+      padding: 50px 40px;
+      max-width: 550px;
+      width: 100%;
+      text-align: center;
+      animation: slideUp 0.5s ease-out;
+    }
+    
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    
+    h1 {
+      color: #2d3748;
+      font-size: 32px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    
+    .subtitle {
+      color: #718096;
+      font-size: 16px;
+      margin-bottom: 35px;
+      line-height: 1.6;
+    }
+    
+    .steps {
+      background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+      text-align: left;
+    }
+    
+    .steps h3 {
+      color: #667eea;
+      font-size: 18px;
+      margin-bottom: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .steps ol {
+      margin: 15px 0 15px 25px;
+      line-height: 2;
+      color: #4a5568;
+      font-size: 15px;
+    }
+    
+    .steps li {
+      margin: 10px 0;
+    }
+    
+    .steps strong {
+      color: #2d3748;
+    }
+    
+    .app-links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .app-link {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.3s;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+    
+    .app-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+    
+    .qr-section {
+      margin: 35px 0;
+      padding: 25px;
+      background: #f7fafc;
+      border-radius: 16px;
+    }
+    
+    .qr-label {
+      color: #4a5568;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    
+    #qrcode {
+      display: inline-block;
+      padding: 20px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .manual-entry {
+      margin-top: 30px;
+    }
+    
+    .manual-label {
+      color: #4a5568;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    
+    .secret-box {
+      background: white;
+      border: 3px dashed #cbd5e0;
+      border-radius: 12px;
+      padding: 18px;
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 16px;
+      color: #2d3748;
+      word-break: break-all;
+      line-height: 1.6;
+      letter-spacing: 2px;
+      position: relative;
+    }
+    
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .copy-btn:hover {
+      background: #5568d3;
+    }
+    
+    .input-section {
+      margin-top: 35px;
+    }
+    
+    .input-label {
+      color: #2d3748;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      display: block;
+    }
+    
+    input {
+      width: 100%;
+      padding: 18px;
+      font-size: 24px;
+      text-align: center;
+      letter-spacing: 12px;
+      border: 3px solid #e2e8f0;
+      border-radius: 16px;
+      font-family: 'Monaco', 'Courier New', monospace;
+      transition: all 0.3s;
+    }
+    
+    input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 5px rgba(102, 126, 234, 0.15);
+      transform: scale(1.02);
+    }
+    
+    button.verify-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 16px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 25px;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+    
+    button.verify-btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+    }
+    
+    button.verify-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .error {
+      background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
+      color: white;
+      padding: 16px;
+      border-radius: 12px;
+      margin-top: 20px;
+      font-size: 15px;
+      font-weight: 600;
+      display: none;
+      animation: shake 0.5s;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-12px); }
+      75% { transform: translateX(12px); }
+    }
+    
+    .success {
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      color: white;
+      padding: 16px;
+      border-radius: 12px;
+      margin-top: 20px;
+      font-size: 15px;
+      font-weight: 600;
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 40px 25px;
+      }
+      
+      h1 {
+        font-size: 26px;
+      }
+      
+      input {
+        font-size: 20px;
+        letter-spacing: 8px;
+      }
+      
+      .app-links {
+        flex-direction: column;
+      }
+      
+      .app-link {
+        width: 100%;
+      }
+    }
+  </style>
+  <!-- QR Code generation library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">🔐</div>
+    <h1>Set Up Two-Factor Authentication</h1>
+    <p class="subtitle">Add an extra layer of security to protect your account</p>
+
+    <!-- STEP 1: Download App -->
+    <div class="steps">
+      <h3>📱 Step 1: Download an Authenticator App</h3>
+      <p style="color: #718096; font-size: 14px; margin-bottom: 15px;">
+        Choose one of these free apps for your phone:
+      </p>
+      <div class="app-links">
+        <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank" class="app-link">
+          📲 Google Authenticator
+        </a>
+        <a href="https://authy.com/download/" target="_blank" class="app-link">
+          🔒 Authy
+        </a>
+        <a href="https://www.microsoft.com/en-us/security/mobile-authenticator-app" target="_blank" class="app-link">
+          🛡️ Microsoft Authenticator
+        </a>
+      </div>
+    </div>
+
+    <!-- STEP 2: Scan QR Code -->
+    <div class="steps">
+      <h3>📷 Step 2: Scan the QR Code</h3>
+      <ol>
+        <li>Open your authenticator app</li>
+        <li>Tap the <strong>"+"</strong> or <strong>"Add Account"</strong> button</li>
+        <li>Select <strong>"Scan QR Code"</strong></li>
+        <li>Point your camera at the QR code below</li>
+      </ol>
+    </div>
+
+    <!-- QR CODE DISPLAY -->
+    <div class="qr-section">
+      <p class="qr-label">Scan this QR code with your authenticator app:</p>
+      <div id="qrcode"></div>
+    </div>
+
+    <!-- MANUAL ENTRY (if can't scan) -->
+    <div class="manual-entry">
+      <p class="manual-label">Can't scan the QR code? Enter this code manually:</p>
+      <div class="secret-box">
+        <button class="copy-btn" onclick="copySecret()">📋 Copy</button>
+        <span id="secret"></span>
+      </div>
+    </div>
+
+    <!-- STEP 3: Enter Code -->
+    <div class="input-section">
+      <label class="input-label">
+        ✅ Step 3: Enter the 6-digit code from your app to verify:
+      </label>
+      <input 
+        type="text" 
+        id="code" 
+        maxlength="6" 
+        pattern="[0-9]*" 
+        inputmode="numeric"
+        placeholder="000000"
+        autocomplete="off"
+        autofocus
+      />
+    </div>
+
+    <button class="verify-btn" id="verifyBtn" onclick="verifyAndEnable()">
+      ✨ Verify & Enable MFA
+    </button>
+
+    <div id="error" class="error"></div>
+    <div id="success" class="success"></div>
+  </div>
+
+  <script>
+    // ========================================
+    // GET DATA FROM URL
+    // ========================================
+    const params = new URLSearchParams(window.location.search);
+    const secret = params.get('secret');        // The TOTP secret (base32)
+    const email = params.get('email');          // User's email
+    const qrData = decodeURIComponent(params.get('qr')); // QR code URL
+    const state = params.get('state');          // Auth0 state parameter
+
+    console.log('Enrollment page loaded');
+    console.log('Secret (first 10 chars):', secret ? secret.substring(0, 10) + '...' : 'missing');
+    console.log('Email:', email);
+    console.log('State:', state ? 'present' : 'missing');
+
+    // ========================================
+    // GENERATE QR CODE
+    // ========================================
+    if (qrData && qrData !== 'null') {
+      console.log('Generating QR code');
+      new QRCode(document.getElementById('qrcode'), {
+        text: qrData,
+        width: 220,
+        height: 220,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H // High error correction
+      });
+    } else {
+      console.error('QR data missing!');
+      document.getElementById('qrcode').innerHTML = '<p style="color: red;">Error loading QR code</p>';
+    }
+
+    // ========================================
+    // DISPLAY SECRET FOR MANUAL ENTRY
+    // ========================================
+    if (secret && secret !== 'null') {
+      document.getElementById('secret').textContent = secret;
+    } else {
+      console.error('Secret missing!');
+      document.getElementById('secret').textContent = 'Error: Secret not found';
+    }
+
+    // ========================================
+    // COPY SECRET TO CLIPBOARD
+    // ========================================
+    function copySecret() {
+      const secretText = document.getElementById('secret').textContent;
+      navigator.clipboard.writeText(secretText).then(() => {
+        const btn = event.target;
+        btn.textContent = '✅ Copied!';
+        setTimeout(() => {
+          btn.textContent = '📋 Copy';
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+        alert('Failed to copy. Please copy manually.');
+      });
+    }
+
+    // ========================================
+    // VERIFY THE CODE
+    // ========================================
+    function verifyAndEnable() {
+      const code = document.getElementById('code').value.trim();
+      const errorDiv = document.getElementById('error');
+      const successDiv = document.getElementById('success');
+      const btn = document.getElementById('verifyBtn');
+
+      console.log('Verify button clicked');
+      console.log('Code entered:', code);
+
+      // Reset messages
+      errorDiv.style.display = 'none';
+      successDiv.style.display = 'none';
+
+      // Validate input
+      if (!code) {
+        console.error('No code entered');
+        errorDiv.textContent = '❌ Please enter the 6-digit code';
+        errorDiv.style.display = 'block';
+        return;
+      }
+
+      if (code.length !== 6) {
+        console.error('Code wrong length:', code.length);
+        errorDiv.textContent = '❌ Code must be exactly 6 digits';
+        errorDiv.style.display = 'block';
+        return;
+      }
+
+      if (!/^\d{6}$/.test(code)) {
+        console.error('Code contains non-digits');
+        errorDiv.textContent = '❌ Code must contain only numbers';
+        errorDiv.style.display = 'block';
+        return;
+      }
+
+      // Disable button to prevent double-submission
+      btn.disabled = true;
+      btn.textContent = '⏳ Verifying...';
+
+      console.log('Redirecting back to Auth0 with code');
+      
+      // Continue Auth0 flow with the code
+      // Auth0 will call onContinuePostLogin with this code
+      const continueUrl = `/continue?state=${state}&code=${code}`;
+      console.log('Continue URL:', continueUrl);
+      
+      window.location.href = continueUrl;
+    }
+
+    // ========================================
+    // AUTO-SUBMIT WHEN 6 DIGITS ENTERED
+    // ========================================
+    document.getElementById('code').addEventListener('input', function(e) {
+      console.log('Code input changed:', e.target.value);
+      
+      // Only allow numbers
+      e.target.value = e.target.value.replace(/\D/g, '');
+      
+      // Auto-submit when 6 digits
+      if (e.target.value.length === 6) {
+        console.log('6 digits entered, auto-submitting in 500ms');
+        setTimeout(() => verifyAndEnable(), 500);
+      }
+    });
+
+    // ========================================
+    // PASTE SUPPORT
+    // ========================================
+    document.getElementById('code').addEventListener('paste', function(e) {
+      e.preventDefault();
+      const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+      console.log('Text pasted:', pastedText);
+      
+      const numbers = pastedText.replace(/\D/g, '').substring(0, 6);
+      e.target.value = numbers;
+      
+      if (numbers.length === 6) {
+        console.log('Pasted 6 digits, auto-submitting in 500ms');
+        setTimeout(() => verifyAndEnable(), 500);
+      }
+    });
+
+    // ========================================
+    // KEYBOARD SHORTCUTS
+    // ========================================
+    document.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        console.log('Enter key pressed');
+        verifyAndEnable();
+      }
+    });
+
+    // Log when page is ready
+    console.log('Enrollment page ready');
+  </script>
+</body>
+</html>
