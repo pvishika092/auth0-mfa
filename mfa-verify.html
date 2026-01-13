@@ -328,7 +328,7 @@
       console.log('Redirecting back to Auth0');
 
       // Continue Auth0 flow
-      const continueUrl = `/continue?state=${state}&code=${code}`;
+      const continueUrl = `https://auth.panaroma.ai/continue?state=${state}&code=${code}`;
       console.log('Continue URL:', continueUrl);
       
       window.location.href = continueUrl;
