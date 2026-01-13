@@ -320,13 +320,38 @@
   function copySecret() {
     navigator.clipboard.writeText(secret);
   }
+  
+  async function verifyAndEnable() {
+  const code = document.getElementById('code').value.trim();
+  if (code.length !== 6) return;
 
-  function verifyAndEnable() {
-    const code = document.getElementById('code').value.trim();
-    if (code.length !== 6) return;
-    window.location.href =
-      `https://auth.panaroma.ai/continue?state=${state}&code=${code}`;
+  try {
+    const res = await fetch(
+      `https://auth.panaroma.ai/continue?state=${state}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ code })
+      }
+    );
+
+    // IMPORTANT:
+    // Auth0 will redirect automatically if MFA is correct
+    // DO NOT manually redirect here
+
+    if (!res.ok) {
+      document.getElementById("error").style.display = "block";
+      document.getElementById("error").innerText =
+        "Invalid code. Please try again.";
+    }
+  } catch (e) {
+    document.getElementById("error").style.display = "block";
+    document.getElementById("error").innerText =
+      "Something went wrong. Please retry.";
   }
+}
 
   document.getElementById('code').addEventListener('input', e => {
     e.target.value = e.target.value.replace(/\D/g, '');
@@ -334,6 +359,7 @@
       setTimeout(verifyAndEnable, 500);
     }
   });
+  
 </script>
 </body>
 </html>
