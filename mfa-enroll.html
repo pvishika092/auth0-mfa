@@ -325,7 +325,7 @@
     const code = document.getElementById('code').value.trim();
     if (code.length !== 6) return;
     window.location.href =
-      `/continue?state=${state}&code=${code}`;
+      `https://auth.panaroma.ai/continue?state=${state}&code=${code}`;
   }
 
   document.getElementById('code').addEventListener('input', e => {
