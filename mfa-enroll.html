@@ -64,153 +64,31 @@
     border: 1px solid var(--border-soft);
   }
 
-  /* LEFT STEPS */
-  .step {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 28px;
-  }
+  .step { display: flex; gap: 16px; margin-bottom: 28px; }
+  .step-number { width: 36px; height: 36px; border-radius: 12px; flex-shrink: 0; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+  .step h3 { margin: 0 0 6px; font-size: 16px; }
+  .step p { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
 
-  .step-number {
-    width: 36px;
-    height: 36px;
-    border-radius: 12px;
-    flex-shrink : 0;
-    background: var(--primary);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-  }
+  .qr-title { text-align: center; font-weight: 600; margin-bottom: 6px; }
+  .qr-sub { text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+  .qr-box { display: flex; justify-content: center; margin-bottom: 24px; }
+  #qrcode { padding: 20px; background: white; border-radius: 16px; border: 1px solid var(--border-soft); }
 
-  .step h3 {
-    margin: 0 0 6px;
-    font-size: 16px;
-  }
+  .manual h4 { text-align: center; margin-bottom: 6px; }
+  .manual p { text-align: center; font-size: 14px; color: var(--text-muted); margin-bottom: 12px; }
+  .secret { background: #f8fafc; border: 1px dashed var(--border-soft); border-radius: 12px; padding: 14px; font-family: monospace; font-size: 14px; text-align: center; word-break: break-all; position: relative; }
+  .copy-btn { position: absolute; top: 8px; right: 10px; background: var(--primary); color: white; border: none; border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer; }
 
-  .step p {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.5;
-  }
+  .code-input { margin-top: 24px; }
+  .code-input input { width: 100%; padding: 16px; font-size: 24px; text-align: center; letter-spacing: 12px; border-radius: 14px; border: 1px solid var(--border-soft); }
 
-  /* RIGHT */
-  .qr-title {
-    text-align: center;
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
+  .button { width: 100%; margin-top: 20px; padding: 14px; border-radius: 999px; border: none; background: var(--primary); color: white; font-size: 16px; font-weight: 600; cursor: pointer; }
 
-  .qr-sub {
-    text-align: center;
-    font-size: 13px;
-    color: var(--text-muted);
-    margin-bottom: 16px;
-  }
+  .error, .success { margin-top: 16px; padding: 14px; border-radius: 12px; display: none; font-weight: 600; text-align: center; }
+  .error { background: #fee2e2; color: #991b1b; }
+  .success { background: #dcfce7; color: #166534; }
 
-  .qr-box {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 24px;
-  }
-
-  #qrcode {
-    padding: 20px;
-    background: white;
-    border-radius: 16px;
-    border: 1px solid var(--border-soft);
-  }
-
-  .manual h4 {
-    text-align: center;
-    margin-bottom: 6px;
-  }
-
-  .manual p {
-    text-align: center;
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-  }
-
-  .secret {
-    background: #f8fafc;
-    border: 1px dashed var(--border-soft);
-    border-radius: 12px;
-    padding: 14px;
-    font-family: monospace;
-    font-size: 14px;
-    text-align: center;
-    word-break: break-all;
-    position: relative;
-  }
-
-  .copy-btn {
-    position: absolute;
-    top: 8px;
-    right: 10px;
-    background: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 6px 10px;
-    font-size: 12px;
-    cursor: pointer;
-  }
-
-  .code-input {
-    margin-top: 24px;
-  }
-
-  .code-input input {
-    width: 100%;
-    padding: 16px;
-    font-size: 24px;
-    text-align: center;
-    letter-spacing: 12px;
-    border-radius: 14px;
-    border: 1px solid var(--border-soft);
-  }
-
-  .button {
-    width: 100%;
-    margin-top: 20px;
-    padding: 14px;
-    border-radius: 999px;
-    border: none;
-    background: var(--primary);
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .error, .success {
-    margin-top: 16px;
-    padding: 14px;
-    border-radius: 12px;
-    display: none;
-    font-weight: 600;
-    text-align: center;
-  }
-
-  .error {
-    background: #fee2e2;
-    color: #991b1b;
-  }
-
-  .success {
-    background: #dcfce7;
-    color: #166534;
-  }
-
-  .hint {
-    text-align: center;
-    font-size: 12px;
-    margin-top: 12px;
-    color: var(--text-muted);
-  }
+  .hint { text-align: center; font-size: 12px; margin-top: 12px; color: var(--text-muted); }
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -223,17 +101,12 @@
   </div>
 
   <div class="split">
-    <!-- LEFT -->
     <div class="card">
       <div class="step">
         <div class="step-number">1</div>
         <div>
           <h3>Install an Authenticator App</h3>
-          <p>
-            Authenticator apps such as <strong>Google Authenticator</strong> or
-            <strong>Microsoft Authenticator</strong> generate secure, time-based
-            codes that you’ll use when signing in.
-          </p>
+          <p>Authenticator apps such as <strong>Google Authenticator</strong> or <strong>Microsoft Authenticator</strong> generate secure, time-based codes that you’ll use when signing in.</p>
         </div>
       </div>
 
@@ -241,10 +114,7 @@
         <div class="step-number">2</div>
         <div>
           <h3>Scan the QR Code</h3>
-          <p>
-            Open your authenticator app, tap “Add Account” or the “+” icon,
-            then scan the QR code shown on the right.
-          </p>
+          <p>Open your authenticator app, tap “Add Account” or the “+” icon, then scan the QR code shown on the right.</p>
         </div>
       </div>
 
@@ -252,14 +122,11 @@
         <div class="step-number">3</div>
         <div>
           <h3>Verify & Complete Setup</h3>
-          <p>
-            Enter the 6-digit code currently shown in your authenticator app.
-          </p>
+          <p>Enter the 6-digit code currently shown in your authenticator app.</p>
         </div>
       </div>
     </div>
 
-    <!-- RIGHT -->
     <div class="card">
       <div class="qr-title">Scan this QR code</div>
       <div class="qr-sub">Use your authenticator app</div>
@@ -278,18 +145,10 @@
       </div>
 
       <div class="code-input">
-        <input
-          type="text"
-          id="code"
-          maxlength="6"
-          inputmode="numeric"
-          placeholder="000000"
-        />
+        <input type="text" id="code" maxlength="6" inputmode="numeric" placeholder="000000" />
       </div>
 
-      <button class="button" id="verifyBtn" onclick="verifyAndEnable()">
-        Verify & Enable Two-Factor Authentication
-      </button>
+      <button class="button" id="verifyBtn" onclick="verifyAndEnable()">Verify & Enable Two-Factor Authentication</button>
 
       <div id="error" class="error"></div>
       <div id="success" class="success"></div>
@@ -306,6 +165,16 @@
   const secret = params.get('secret');
   const qrData = decodeURIComponent(params.get('qr'));
   const state = params.get('state');
+
+  // NEW: Handle attemptsLeft for MFA enrollment
+  let attemptsLeft = parseInt(params.get('attemptsLeft') || '3', 10);
+  const errorMessage = params.get('error');
+
+  if (errorMessage) {
+    const errorDiv = document.getElementById('error');
+    errorDiv.textContent = errorMessage + ` (${attemptsLeft} attempts left)`;
+    errorDiv.style.display = 'block';
+  }
 
   if (qrData && qrData !== 'null') {
     new QRCode(document.getElementById('qrcode'), {
@@ -324,11 +193,15 @@
   function verifyAndEnable() {
     const code = document.getElementById('code').value.trim();
     if (code.length !== 6) return;
+
+    if (attemptsLeft <= 0) {
+      alert('Maximum attempts reached. Please try again later.');
+      return;
+    }
+
     window.location.href =
       `https://auth.panaroma.ai/continue?state=${state}&code=${code}`;
   }
-  
-  
 
   document.getElementById('code').addEventListener('input', e => {
     e.target.value = e.target.value.replace(/\D/g, '');
@@ -336,7 +209,6 @@
       setTimeout(verifyAndEnable, 500);
     }
   });
-  
 </script>
 </body>
 </html>
