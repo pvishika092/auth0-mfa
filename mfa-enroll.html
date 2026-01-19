@@ -203,7 +203,7 @@
    .error-message {
     display: none;
     font-size: 12px;
-    color: #dc2626;
+    color: #8B0000;
     margin-top: 6px;
     align-items: center;
     gap: 6px;
@@ -339,9 +339,10 @@
           <input type="text" id="code" maxlength="6" inputmode="numeric" placeholder="000000" />
         </div>
          <div id="error" class="error-message">
-          <svg class="error-icon" fill="none" viewBox="0 0 24 24" stroke="#dc2626">
+          <svg class="error-icon" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#dc2626">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>
+          
           <span id="error-text"></span>
         </div>
 
@@ -414,7 +415,7 @@
   const state = params.get('state');
 
   let attemptsLeft = parseInt(params.get('attemptsLeft') || '3', 10);
-  const errorMessage = params.get('error');
+  const errorMessage =  params.get('error');
 
   if (errorMessage) {
     const errorDiv = document.getElementById('error');
@@ -454,6 +455,9 @@
       alert('Maximum attempts reached. Please try again later.');
       return;
     }
+    
+     btn.disabled = true;
+    btn.textContent = 'Verifying...';
 
     window.location.href =
       `https://auth.panaroma.ai/continue?state=${state}&code=${code}`;
@@ -462,7 +466,7 @@
   document.getElementById('code').addEventListener('input', e => {
     e.target.value = e.target.value.replace(/\D/g, '');
     if (e.target.value.length === 6) {
-      setTimeout(verifyAndEnable, 300);
+      setTimeout(verifyAndEnable, 200);
     }
   });
 </script>
