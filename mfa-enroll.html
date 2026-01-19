@@ -311,7 +311,7 @@
         <div class="secret-label">Can't scan the QR code? Enter this setup key manually</div>
         <div class="secret-wrapper">
           <span class="secret-text" id="secret"></span>
-          <button class="copy-btn" onclick="copySecret()">Copy</button>
+          <button class="copy-btn" id="copyBtn" onclick="copySecret()">Copy</button>
         </div>
       </div>
 
@@ -410,8 +410,18 @@
   document.getElementById('secret').textContent = secret || 'Error';
 
   function copySecret() {
-    navigator.clipboard.writeText(secret);
+    const btn = document.getElementById('copyBtn');
+    
+    navigator.clipboard.writeText(secret).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+      }, 2000);
+    }).catch(err => {
+      console.error('Failed to copy:', err);
+    });
   }
+
 
   function verifyAndEnable() {
     const code = document.getElementById('code').value.trim();
