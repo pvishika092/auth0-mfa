@@ -454,6 +454,7 @@
 
   function verifyAndEnable() {
     const code = document.getElementById('code').value.trim();
+        const btn = document.getElementById('verifyBtn');
     if (code.length !== 6) return;
 
     if (attemptsLeft <= 0) {
