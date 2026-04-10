@@ -354,7 +354,7 @@
       </div>
 
       <!-- Verify Button -->
-      <button class="main-btn" id="verifyBtn" onclick="verifyAndEnable()">Verify & Enable Two-Factor Authentication</button>
+      <button class="main-btn" id="verifyBtn">Verify & Enable Two-Factor Authentication</button>
               <div class="hint">Your connection is secure. Codes refresh every 30 seconds.</div>
     </div>
   </div>
@@ -472,7 +472,7 @@
   document.getElementById('code').addEventListener('input', e => {
     e.target.value = e.target.value.replace(/\D/g, '');
     if (e.target.value.length === 6) {
-      setTimeout(verifyAndEnable, 200);
+      setTimeout(verifyAndEnable, 50);
     }
   });
 </script>
