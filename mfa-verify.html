@@ -319,12 +319,10 @@
 
   document.getElementById('code').addEventListener('input', e => {
     e.target.value = e.target.value.replace(/\D/g, '');
-    if (e.target.value.length === 6) setTimeout(verifyCode, 300);
+    if (e.target.value.length === 6) setTimeout(verifyCode, 50);
   });
 
-  document.addEventListener('keypress', e => {
-    if (e.key === 'Enter') verifyCode();
-  });
+
 </script>
 </body>
 </html>
